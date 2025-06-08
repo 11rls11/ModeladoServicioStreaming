@@ -18,11 +18,12 @@ void Pelicula::mostrar() const {
         "Animación", "Ciencia ficción", "Animación", "Superhéroes",
         "Acción", "Acción", "Animación", "Comedia", 
         "Superhéroes","Animación", "Superhéroes", "Fantasía"};
-    double calificaciones[20] {0.0};
     Pelicula *peliculas = new Pelicula[20];
     
     for (int i = 0; i < 20; i++) {
-        peliculas[i] = Pelicula(IDs[i], nombres[i], duraciones[i], generos[i], calificaciones[i]);
+        double calificacionPromedio = Video::calcularPromedioCalificacion(IDs[i]);
+
+        peliculas[i] = Pelicula(IDs[i], nombres[i], duraciones[i], generos[i], calificacionPromedio);
         cout << (i + 1) << " - " << peliculas[i] << endl;
     } 
 

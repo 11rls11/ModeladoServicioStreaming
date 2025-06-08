@@ -1,6 +1,7 @@
 #ifndef VIDEO_H
 #define VIDEO_H
 
+#include <fstream>
 #include <iostream>
 #include <string>
 
@@ -13,11 +14,14 @@ class Video {
         int duracion;
         string genero;
         double calificacion;
+        static string convertirTiempoEnHorasYMinutos(int);
     public:
         Video(int, string, int, string, double);
+        virtual ~Video() {};
         virtual void mostrar() const = 0;
-        static string convertirTiempoEnHorasYMinutos(int);
         friend ostream& operator<<(ostream& salida, const Video& video);
+        static double calcularPromedioCalificacion(int);
+        static void guardarCalificacion(int, double);
 };
 
 #endif

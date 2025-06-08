@@ -1,8 +1,7 @@
-#include <fstream>
-#include "pelicula.h"
+#include "UI_UX.h"
 
 int main() {
-    Pelicula peliculas;
-    peliculas.mostrar();
+    UI_UX programa;
+    programa.mostrarMenuPrincipal();
     return 0;
 }

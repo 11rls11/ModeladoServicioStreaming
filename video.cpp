@@ -17,7 +17,41 @@ ostream& operator<<(ostream& salida, const Video& video) {
         << " | " << video.genero;
     } else {
     salida << video.nombre << " | " << Video::convertirTiempoEnHorasYMinutos(video.duracion)
-        << " | " << video.genero << video.calificacion;
+        << " | " << video.genero << " | " << "Calificación: " << video.calificacion;
     }
     return salida;
+}
+
+double Video::calcularPromedioCalificacion(int IDVideo) {
+    ifstream calificaciones("calificaciones.txt");
+
+    if (!calificaciones.is_open()) {
+        return 0.0;
+    }
+
+    double suma = 0.0;
+    int contador = 0;
+    int IDArchivo;
+    double calificacionArchivo;
+
+    while (calificaciones >> IDArchivo >> calificacionArchivo) {
+        if (IDArchivo == IDVideo) {
+            suma += calificacionArchivo;
+            contador++;
+        }
+    }
+    calificaciones.close();
+
+    return (contador > 0) ? (suma / contador) : 0.0;
+}
+
+void Video::guardarCalificacion(int IDVideo, double calificacionVideo) {
+    ofstream calificaciones("calificaciones.txt", ios::app);
+    if (calificaciones.is_open()) {
+        calificaciones << IDVideo << " " << calificacionVideo << endl;
+        calificaciones.close();
+        cout << "Calificación guardada exitosamente" << endl;
+    } else {
+        cout << "Error al abrir el archivo para guardar tu calificación" << endl;
+    }
 }
