@@ -4,6 +4,4 @@ int main() {
     UI_UX programa;
     programa.mostrarMenuPrincipal();
     return 0;
-    cout << "Programa finalizado." << endl;
-    cout << "Hola estuve aqui" << endl;
 }
