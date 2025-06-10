@@ -5,4 +5,5 @@ int main() {
     programa.mostrarMenuPrincipal();
     return 0;
     cout << "Programa finalizado." << endl;
+    cout << "Hola estuve aqui" << endl;
 }
