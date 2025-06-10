@@ -27,12 +27,13 @@ void UI_UX::mostrarMenuPrincipal() {
     }
 }
 
-void UI_UX::mostrarMenuSeleccion(int opcion) {
+void UI_UX::mostrarMenuSeleccion(const int &opcion) {
     switch (opcion) {
         case 1: {
-            cout << "\nPelículas disponibles" << endl;
-            Pelicula peliculas;
-            peliculas.mostrar();
+            cout << "\nPelículas disponibles:" << endl;
+            Video *peliculas = new Pelicula();
+            peliculas->mostrar();
+            delete peliculas;
             int numeroPelicula;
             cout << "\nSelecciona una película (introduc el número de la película): ";
             cin >> numeroPelicula;
@@ -49,7 +50,7 @@ void UI_UX::mostrarMenuSeleccion(int opcion) {
     }
 }
 
-void UI_UX::mostrarMenuAccion(int opcion, int IDVideo) {
+void UI_UX::mostrarMenuAccion(const int &opcion, const int &ID) {
     switch (opcion) {
         case 1: {
             int accion;
@@ -64,7 +65,7 @@ void UI_UX::mostrarMenuAccion(int opcion, int IDVideo) {
                     cout << "Reproduciendo película..." << endl;
                     break;
                 case 2:
-                    realizarReseña(IDVideo);
+                    realizarReseña(ID);
                     break;
                 default:
                     cout << "Opción no válida" << endl;
@@ -75,7 +76,7 @@ void UI_UX::mostrarMenuAccion(int opcion, int IDVideo) {
     }
 }
 
-void UI_UX::realizarReseña(int IDVideo) {
+void UI_UX::realizarReseña(const int &ID) {
     double calificacion;
     cout << "Introduce tu calificación (0.0 - 5.0): ";
     cin >> calificacion;
@@ -83,7 +84,6 @@ void UI_UX::realizarReseña(int IDVideo) {
         cout << "Calificación inválida. Introduce un valor entre 0.0 y 5.0: ";
         cin >> calificacion;
     }
-    if (IDVideo >= 1 && IDVideo <= 20) {
-        Video::guardarCalificacion(IDVideo, calificacion);
-    }
+    
+    Video::guardarCalificacion(ID, calificacion);
 }

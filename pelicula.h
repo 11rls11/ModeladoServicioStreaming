@@ -6,7 +6,7 @@
 class Pelicula : public Video {
     public:
         Pelicula();
-        Pelicula(int, string, int, string, double);
+        Pelicula(int ID, string nombre, int duracion, string genero, double calificacion);
         void mostrar() const override;
 };
 

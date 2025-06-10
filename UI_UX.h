@@ -9,9 +9,9 @@ using namespace std;
 
 class UI_UX {
     private:
-        void mostrarMenuSeleccion(int);
-        void mostrarMenuAccion(int, int);
-        void realizarReseña(int);
+        void mostrarMenuSeleccion(const int &opcion);
+        void mostrarMenuAccion(const int &opcion, const int &numeroPelicula);
+        void realizarReseña(const int &ID);
     public:
         UI_UX();
         void mostrarMenuPrincipal();
