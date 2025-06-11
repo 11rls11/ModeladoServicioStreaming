@@ -1,5 +1,7 @@
 #include "video.h"
 
+Video::Video() : ID(0), nombre(""), duracion(0), genero(""), calificacion(0.0) {}
+
 Video::Video(int ID, string nombre, int duracion, string genero, double calificacion) : 
 ID(ID), nombre(nombre), duracion(duracion), genero(genero), calificacion(calificacion) {};
 
@@ -22,7 +24,7 @@ ostream& operator<<(ostream& salida, const Video& video) {
     return salida;
 }
 
-double Video::calcularPromedioCalificacion(int IDVideo) {
+double Video::calcularPromedioCalificacion(const int &ID) {
     ifstream calificaciones("calificaciones.txt");
 
     if (!calificaciones.is_open()) {
@@ -35,7 +37,7 @@ double Video::calcularPromedioCalificacion(int IDVideo) {
     double calificacionArchivo;
 
     while (calificaciones >> IDArchivo >> calificacionArchivo) {
-        if (IDArchivo == IDVideo) {
+        if (IDArchivo == ID) {
             suma += calificacionArchivo;
             contador++;
         }
@@ -45,10 +47,10 @@ double Video::calcularPromedioCalificacion(int IDVideo) {
     return (contador > 0) ? (suma / contador) : 0.0;
 }
 
-void Video::guardarCalificacion(int IDVideo, double calificacionVideo) {
+void Video::guardarCalificacion(const int &ID, const double &calificacion) {
     ofstream calificaciones("calificaciones.txt", ios::app);
     if (calificaciones.is_open()) {
-        calificaciones << IDVideo << " " << calificacionVideo << endl;
+        calificaciones << ID << " " << calificacion << endl;
         calificaciones.close();
         cout << "Calificación guardada exitosamente" << endl;
     } else {

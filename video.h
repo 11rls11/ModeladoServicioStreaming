@@ -14,14 +14,15 @@ class Video {
         int duracion;
         string genero;
         double calificacion;
-        static string convertirTiempoEnHorasYMinutos(int);
+        static string convertirTiempoEnHorasYMinutos(int duracion);
     public:
+        Video();
         Video(int, string, int, string, double);
         virtual ~Video() {};
         virtual void mostrar() const = 0;
         friend ostream& operator<<(ostream& salida, const Video& video);
-        static double calcularPromedioCalificacion(int);
-        static void guardarCalificacion(int, double);
+        static double calcularPromedioCalificacion(const int &ID);
+        static void guardarCalificacion(const int &ID, const double &calificacion);
 };
 
 #endif
