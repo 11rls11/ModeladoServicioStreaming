@@ -16,6 +16,7 @@ class Video {
         double calificacion;
         static string convertirTiempoEnHorasYMinutos(int duracion);
     public:
+        Video();
         Video(int, string, int, string, double);
         virtual ~Video() {};
         virtual void mostrar() const = 0;
