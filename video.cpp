@@ -5,8 +5,19 @@ Video::Video() : ID(0), nombre(""), duracion(0), genero(""), calificacion(0.0) {
 Video::Video(int ID, string nombre, int duracion, string genero, double calificacion) : 
 ID(ID), nombre(nombre), duracion(duracion), genero(genero), calificacion(calificacion) {};
 
-string Video::getGenero() {
+string Video::getNombre() const {
+    return nombre;
+}
+int Video::getDuracion() const {
+    return duracion;
+}
+
+string Video::getGenero() const {
     return genero;
+}
+
+double Video::getCalificacion() const {
+    return calificacion;
 }
 
 string Video::convertirTiempoEnHorasYMinutos(int duracion) {
@@ -17,14 +28,18 @@ string Video::convertirTiempoEnHorasYMinutos(int duracion) {
     return tiempo;
 }
 
-ostream& operator<<(ostream& salida, const Video& video) {
+void Video::imprimir(ostream& salida, const Video &video) const {
     if (video.calificacion == 0.0) {
-    salida << video.nombre << " | " << Video::convertirTiempoEnHorasYMinutos(video.duracion)
+        salida << video.nombre << " | " << Video::convertirTiempoEnHorasYMinutos(video.duracion)
         << " | " << video.genero;
     } else {
-    salida << video.nombre << " | " << Video::convertirTiempoEnHorasYMinutos(video.duracion)
+        salida << video.nombre << " | " << Video::convertirTiempoEnHorasYMinutos(video.duracion)
         << " | " << video.genero << " | " << "Calificación: " << video.calificacion;
     }
+}
+
+ostream& operator<<(ostream& salida, const Video& video) {
+    video.imprimir(salida, video);
     return salida;
 }
 

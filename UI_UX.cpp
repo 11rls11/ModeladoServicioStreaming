@@ -202,15 +202,15 @@ void UI_UX::mostrarMenuAccion(const int &opcion, int &ID) {
             switch (accion) {
                 case 1: {
                     ID += 20;
-                    Video *episodio = new Episodio(ID, "", 0, "", 0.0, 0, 0);
+                    Episodio *episodio = new Episodio(ID, "", 0, "", 0.0, 0, 0);
                     episodio->mostrar();
-                    delete episodio;
                     
                     if (Episodio::hayEpisodios(ID)) {
                         int numeroEpisodio;
-                        cout << "\nSelecciona un episodio (1-3): ";
+                        cout << "\nSelecciona un episodio: ";
                         cin >> numeroEpisodio;
-                        if (numeroEpisodio >= 1 && numeroEpisodio <= 3) {
+                        int totalDeEpisodios = Episodio::getNumeroDeEpisodios(ID);
+                        if (numeroEpisodio >= 1 && numeroEpisodio <= totalDeEpisodios) {
                             cout << "Reproduciendo episodio..." << endl;
                             int reseñar;
                             cout << "¿Quieres reseñar este episodio? (1. Sí / 2. No): ";
@@ -223,6 +223,7 @@ void UI_UX::mostrarMenuAccion(const int &opcion, int &ID) {
                             cout << "Número de episodio no válido" << endl;
                         }
                     }
+                    delete episodio;
                     break;
                 }
                 case 2:
