@@ -32,36 +32,26 @@ void UI_UX::mostrarMenuSeleccion(const int &opcion) {
     switch (opcion) {
         case 1: {
             cout << "\nPelículas disponibles:" << endl;
-            Video *peliculas = new Pelicula();
-            peliculas->mostrar();
-            delete peliculas;
+            Video *peliculas = Pelicula::getPeliculas();
             
-            int numeroPelicula;
-            cout << "\nSelecciona una película (introduce el número): ";
-            cin >> numeroPelicula;
-
-            if (numeroPelicula >= 1 && numeroPelicula <= 20) {
-                mostrarMenuAccion(opcion, numeroPelicula);
-            } else {
-                cout << "Número de película no válido" << endl;
+            for (int i = 0; i < 20; i++) {
+                cout << (i + 1) << " - " << peliculas[i] << endl;
             }
+            
+            mostrarMenuSubseleccion(opcion, peliculas);
+            delete[] peliculas;
             break;
         }
         case 2: {
             cout << "\nSeries disponibles:" << endl;
-            Video *series = new Serie();
-            series->mostrar();
-            delete series;
+            Video *series = Serie::getSeries();
             
-            int numeroSerie;
-            cout << "\nSelecciona una serie (introduce el número): ";
-            cin >> numeroSerie;
-
-            if (numeroSerie >= 1 && numeroSerie <= 20) {
-                mostrarMenuAccion(opcion, numeroSerie);
-            } else {
-                cout << "Número de serie no válido" << endl;
+            for (int i = 0; i < 20; i++) {
+                cout << (i + 1) << " - " << series[i] << endl;
             }
+            
+            mostrarMenuSubseleccion(opcion, series);
+            delete[] series;
             break;
         }
         default:
@@ -69,7 +59,109 @@ void UI_UX::mostrarMenuSeleccion(const int &opcion) {
     }
 }
 
-void UI_UX::mostrarMenuAccion(const int &opcion, const int &numero) {
+void UI_UX::mostrarMenuSubseleccion(const int &opcion, Video* &videos) {
+    int eleccion;
+    string tipoVideo = (opcion == 1) ? "películas" : "series";
+    
+    cout << "¿Quieres filtrar " << tipoVideo << " por género? (1. Sí / 2. No): ";
+    cin >> eleccion;
+
+    switch (eleccion) {
+        case 1: {
+            string genero;
+            mostrarGenerosDisponibles(opcion);
+            cout << "Escribe el género a filtrar: ";
+            cin >> genero;
+            
+            int* indicesFiltrados = new int[20];
+            int cantidadFiltrados = 0;
+            
+            for (int i = 0; i < 20; i++) {
+                if (videos[i].getGenero() == genero) {
+                    indicesFiltrados[cantidadFiltrados] = i;
+                    cantidadFiltrados++;
+                }
+            }
+            
+            if (cantidadFiltrados == 0) {
+                cout << "No se encontraron " << tipoVideo << " del género: " << genero << endl;
+                delete[] indicesFiltrados;
+                return;
+            }
+            
+            cout << "\n" << tipoVideo << " del género " << genero << ":" << endl;
+            for (int i = 0; i < cantidadFiltrados; i++) {
+                cout << (i + 1) << " - " << videos[indicesFiltrados[i]] << endl;
+            }
+            
+            int seleccion;
+            cout << "\nSelecciona un " << ((opcion == 1) ? "película" : "serie") 
+                 << " (introduce el número): ";
+            cin >> seleccion;
+            
+            if (seleccion >= 1 && seleccion <= cantidadFiltrados) {
+                int numeroReal = indicesFiltrados[seleccion - 1] + 1;
+                mostrarMenuAccion(opcion, numeroReal);
+            } else {
+                cout << "Número no válido" << endl;
+            }
+            
+            delete[] indicesFiltrados;
+            break;
+        }
+        case 2: {
+            int numero;
+            cout << "\nSelecciona un " << ((opcion == 1) ? "película" : "serie") 
+                 << " (introduce el número): ";
+            cin >> numero;
+             
+            if (numero >= 1 && numero <= 20) {
+                mostrarMenuAccion(opcion, numero);
+            } else {
+                cout << "Número no válido" << endl;
+            }
+            break;
+        }
+        default:
+            cout << "Opción no válida" << endl;
+            break;
+    }
+}
+
+void UI_UX::mostrarGenerosDisponibles(const int &opcion) {
+    Video* contenido = nullptr;
+    
+    if (opcion == 1) {
+        contenido = Pelicula::getPeliculas();
+    } else if (opcion == 2) {
+        contenido = Serie::getSeries();
+    }
+    
+    if (contenido) {
+        cout << "\nGéneros disponibles:" << endl;
+        string generos[20];
+        int contadorGeneros = 0;
+        
+        for (int i = 0; i < 20; i++) {
+            bool yaExiste = false;
+            for (int j = 0; j < contadorGeneros; j++) {
+                if (contenido[i].getGenero() == generos[j]) {
+                    yaExiste = true;
+                    break;
+                }
+            }
+            if (!yaExiste) {
+                generos[contadorGeneros] = contenido[i].getGenero();
+                cout << (contadorGeneros + 1) << " - " << generos[contadorGeneros] << endl;
+                contadorGeneros++;
+            }
+        }
+        
+        delete[] contenido;
+    }
+}
+
+void UI_UX::mostrarMenuAccion(const int &opcion, int &numero) {
     switch (opcion) {
         case 1: {
             int accion;
@@ -103,8 +195,9 @@ void UI_UX::mostrarMenuAccion(const int &opcion, const int &numero) {
             switch (accion) {
                 case 1: {
                     int IDSerie = numero + 20;
-                    Episodio episodio(0, "", 0, "", 0.0, 0, 0, IDSerie);
-                    episodio.mostrar();
+                    Video *episodio = new Episodio(0, "", 0, "", 0.0, 0, 0, IDSerie);
+                    episodio->mostrar();
+                    delete episodio;
 
                     int numeroEpisodio;
                     cout << "\nSelecciona un episodio (1-3): ";
@@ -115,7 +208,7 @@ void UI_UX::mostrarMenuAccion(const int &opcion, const int &numero) {
                         cout << "¿Quieres reseñar este episodio? (1. Sí / 2. No): ";
                         cin >> reseñar;
                         if (reseñar == 1) {
-                            int IDEpisodio = IDSerie * 100 + numeroEpisodio; // Ejemplo de ID único
+                            int IDEpisodio = IDSerie * 100 + numeroEpisodio;
                             realizarReseña(IDEpisodio);
                         }
                     } else {
@@ -124,7 +217,8 @@ void UI_UX::mostrarMenuAccion(const int &opcion, const int &numero) {
                     break;
                 }
                 case 2:
-                    realizarReseña(numero + 20);
+                    numero += 20;
+                    realizarReseña(numero);
                     break;
                 default:
                     cout << "Opción no válida" << endl;
@@ -132,10 +226,13 @@ void UI_UX::mostrarMenuAccion(const int &opcion, const int &numero) {
             }
             break;
         }
+        default:
+            cout << "Opción no válida" << endl;
+            break;
     }
 }
 
-void UI_UX::realizarReseña(const int &ID) {
+void UI_UX::realizarReseña(int &ID) {
     double calificacion;
     cout << "Introduce tu calificación (0.0 - 5.0): ";
     cin >> calificacion;
@@ -144,5 +241,11 @@ void UI_UX::realizarReseña(const int &ID) {
         cin >> calificacion;
     }
     
-    Video::guardarCalificacion(ID, calificacion);
+    if (ID > 2100) {
+        Video::guardarCalificacion(ID, calificacion);
+        ID /= 100;
+        Video::guardarCalificacion(ID, calificacion);
+    } else {
+        Video::guardarCalificacion(ID, calificacion);
+    }
 }

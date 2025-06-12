@@ -9,7 +9,7 @@ Episodio::Episodio(int ID, string nombre, int duracion, string genero, double ca
 
 void Episodio::mostrar() const {
     if (IDSerie == 21) {
-        int IDs[] = {101, 102, 103};
+        int IDs[] = {2101, 2102, 2103};
         string nombres[] = {"Pilot", "Cat's in the Bag...", "...And the Bag's in the River"};
         int duraciones[] = {58, 48, 48};
         int temporadas[] = {1, 1, 1};
@@ -22,7 +22,7 @@ void Episodio::mostrar() const {
                  << " | Duración: " << duraciones[i] << " min | Calificación: " << calificacionPromedio << endl;
         }
     } else if (IDSerie == 22) {
-        int IDs[] = {201, 202, 203};
+        int IDs[] = {2201, 2202, 2203};
         string nombres[] = {"Winter Is Coming", "The Kingsroad", "Lord Snow"};
         int duraciones[] = {62, 56, 58};
         int temporadas[] = {1, 1, 1};
