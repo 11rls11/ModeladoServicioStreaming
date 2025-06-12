@@ -183,7 +183,7 @@ void UI_UX::mostrarMenuAccion(const int &opcion, int &ID) {
                     break;
                 }
                 case 2:
-                    realizarReseña(ID);
+                    realizarResenia(ID);
                     break;
                 default:
                     cout << "Opción no válida" << endl;
@@ -217,7 +217,7 @@ void UI_UX::mostrarMenuAccion(const int &opcion, int &ID) {
                             cin >> reseñar;
                             if (reseñar == 1) {
                                 ID = ID * 100 + numeroEpisodio;
-                                realizarReseña(ID);
+                                realizarResenia(ID);
                             }
                         } else {
                             cout << "Número de episodio no válido" << endl;
@@ -228,7 +228,7 @@ void UI_UX::mostrarMenuAccion(const int &opcion, int &ID) {
                 }
                 case 2:
                     ID += 20;
-                    realizarReseña(ID);
+                    realizarResenia(ID);
                     break;
                 default:
                     cout << "Opción no válida" << endl;
@@ -242,7 +242,7 @@ void UI_UX::mostrarMenuAccion(const int &opcion, int &ID) {
     }
 }
 
-void UI_UX::realizarReseña(int &ID) {
+void UI_UX::realizarResenia(int &ID) {
     double calificacion;
     cout << "Introduce tu calificación (0.0 - 5.0): ";
     cin >> calificacion;
