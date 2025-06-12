@@ -7,6 +7,7 @@ class Pelicula : public Video {
     public:
         Pelicula();
         Pelicula(int ID, string nombre, int duracion, string genero, double calificacion);
+        static Video* getPeliculas();
         void mostrar() const override;
 };
 

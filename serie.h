@@ -9,6 +9,7 @@ class Serie : public Video {
         Serie(int ID, string nombre, 
             int duracion, string genero, 
             double calificacion);
+        static Video* getSeries();  // Nuevo método estático
         void mostrar() const override;
 };
 

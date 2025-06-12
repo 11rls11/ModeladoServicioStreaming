@@ -5,6 +5,10 @@ Video::Video() : ID(0), nombre(""), duracion(0), genero(""), calificacion(0.0) {
 Video::Video(int ID, string nombre, int duracion, string genero, double calificacion) : 
 ID(ID), nombre(nombre), duracion(duracion), genero(genero), calificacion(calificacion) {};
 
+string Video::getGenero() {
+    return genero;
+}
+
 string Video::convertirTiempoEnHorasYMinutos(int duracion) {
     int horas = duracion / 60;
     duracion %= 60;

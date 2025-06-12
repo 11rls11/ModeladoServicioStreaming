@@ -4,7 +4,7 @@ Pelicula::Pelicula() : Video(0, "", 0, "", 0.0) {};
 
 Pelicula::Pelicula(int ID, string nombre, int duracion, string genero, double calificacion) : Video(ID, nombre, duracion, genero, calificacion) {};
 
-void Pelicula::mostrar() const {
+Video* Pelicula::getPeliculas() {
     int IDs[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
     string nombres[] {"Avatar", "Avengers: Endgame", "Avatar: The Way of Water", "Titanic", 
         "Ne Zha 2", "Star Wars: Episodio VII - El despertar de la Fuerza", "Avengers: Infinity War", "Spider-Man: No Way Home",
@@ -18,14 +18,23 @@ void Pelicula::mostrar() const {
         "Animación", "Ciencia ficción", "Animación", "Superhéroes",
         "Acción", "Acción", "Animación", "Comedia", 
         "Superhéroes","Animación", "Superhéroes", "Fantasía"};
-    Pelicula *peliculas = new Pelicula[20];
+    Video *peliculas = new Pelicula[20];
     
     for (int i = 0; i < 20; i++) {
         double calificacionPromedio = Video::calcularPromedioCalificacion(IDs[i]);
 
         peliculas[i] = Pelicula(IDs[i], nombres[i], duraciones[i], generos[i], calificacionPromedio);
-        cout << (i + 1) << " - " << peliculas[i] << endl;
     } 
+
+    return peliculas;
+}
+
+void Pelicula::mostrar() const {
+    Video *peliculas = getPeliculas();
+    
+    for (int i = 0; i < 20; i++) {
+        cout << (i + 1) << " - " << peliculas[i] << endl;
+    }
 
     delete[] peliculas;
 }
