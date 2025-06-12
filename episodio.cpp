@@ -1,14 +1,14 @@
 #include "episodio.h"
 
-Episodio::Episodio() : Video(0, "", 0, "", 0.0), numeroTemporada(0), numeroEpisodio(0), IDSerie(0) {}
+Episodio::Episodio() : Video(0, "", 0, "", 0.0), numeroTemporada(0), numeroEpisodio(0) {}
 
 Episodio::Episodio(int ID, string nombre, int duracion, string genero, double calificacion,
-                   int numeroTemporada, int numeroEpisodio, int IDSerie) 
+                   int numeroTemporada, int numeroEpisodio) 
     : Video(ID, nombre, duracion, genero, calificacion), 
-      numeroTemporada(numeroTemporada), numeroEpisodio(numeroEpisodio), IDSerie(IDSerie) {}
+      numeroTemporada(numeroTemporada), numeroEpisodio(numeroEpisodio) {}
 
 void Episodio::mostrar() const {
-    if (IDSerie == 21) {
+    if (ID == 21) {
         int IDs[] = {2101, 2102, 2103};
         string nombres[] = {"Pilot", "Cat's in the Bag...", "...And the Bag's in the River"};
         int duraciones[] = {58, 48, 48};
@@ -21,7 +21,7 @@ void Episodio::mostrar() const {
             cout << "T" << temporadas[i] << "E" << episodios[i] << ": " << nombres[i] 
                  << " | Duración: " << duraciones[i] << " min | Calificación: " << calificacionPromedio << endl;
         }
-    } else if (IDSerie == 22) {
+    } else if (ID == 22) {
         int IDs[] = {2201, 2202, 2203};
         string nombres[] = {"Winter Is Coming", "The Kingsroad", "Lord Snow"};
         int duraciones[] = {62, 56, 58};
@@ -36,5 +36,15 @@ void Episodio::mostrar() const {
         }
     } else {
         cout << "No hay episodios disponibles para esta serie." << endl;
+    }
+}
+
+bool Episodio::hayEpisodios(const int &ID) {
+    switch (ID) {
+        case 21:
+        case 22:
+            return true;
+        default:
+            return false;
     }
 }
