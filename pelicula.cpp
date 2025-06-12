@@ -22,7 +22,6 @@ Video* Pelicula::getPeliculas() {
     
     for (int i = 0; i < 20; i++) {
         double calificacionPromedio = Video::calcularPromedioCalificacion(IDs[i]);
-
         peliculas[i] = Pelicula(IDs[i], nombres[i], duraciones[i], generos[i], calificacionPromedio);
     } 
 
@@ -30,11 +29,25 @@ Video* Pelicula::getPeliculas() {
 }
 
 void Pelicula::mostrar() const {
-    Video *peliculas = getPeliculas();
-    
-    for (int i = 0; i < 20; i++) {
-        cout << (i + 1) << " - " << peliculas[i] << endl;
+    switch (ID) {
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+        case 6:
+        case 7:
+        case 8:
+        case 9:
+        case 10: {
+            cout << "\nReproduciendo película:" << endl;
+            Video *peliculas = getPeliculas();
+            cout << peliculas[ID] << endl;
+            delete[] peliculas;
+            break;
+        }
+        default:
+            cout << "La película no está disponible por el momento." << endl;
+            break;
     }
-
-    delete[] peliculas;
 }

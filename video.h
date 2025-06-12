@@ -8,8 +8,9 @@
 using namespace std;
 
 class Video {
-    private:
+    protected:
         int ID;
+    private:
         string nombre;
         int duracion;
         string genero;
