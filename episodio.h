@@ -16,6 +16,8 @@ class Episodio : public Video {
         Episodio(int ID, string nombre, int duracion, 
             string genero, double calificacion, 
             int numeroTemporada, int numeroEpisodio);
+        static int getNumeroDeEpisodios(const int &ID);
+        void imprimir(ostream& salida, const Video &video) const override;
         void mostrar() const override;
         static bool hayEpisodios(const int &ID);
 };
