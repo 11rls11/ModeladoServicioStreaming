@@ -1,4 +1,13 @@
 #include "UI_UX.h"
+#include <windows.h> // For ShellExecuteA
+
+void abrirArchivoMultimedia(const string& carpeta, const string& nombreArchivoSinExtension) {
+    string rutaVideo = carpeta + "\\" + nombreArchivoSinExtension + ".mp4";
+    string rutaPoster = "Posters\\" + nombreArchivoSinExtension + ".jpg";
+
+    ShellExecuteA(NULL, "open", rutaPoster.c_str(), NULL, NULL, SW_SHOWNORMAL);
+    ShellExecuteA(NULL, "open", rutaVideo.c_str(), NULL, NULL, SW_SHOWNORMAL);
+}
 
 UI_UX::UI_UX() {}
 
@@ -177,9 +186,14 @@ void UI_UX::mostrarMenuAccion(const int &opcion, int &ID) {
 
             switch (accion) {
                 case 1: {
-                    Video *pelicula = new Pelicula(ID, "", 0, "", 0.0);
-                    pelicula->mostrar();
-                    delete pelicula;
+                    string nombresPeliculas[] = {"Avatar","AvengersEndgame", "AvatarTheWayOfWater","Titanic", "NeZha2", "", "AvengersInfinityWar","SpiderManNoWayHome", "InsideOut2", "JurassicWorld","ElReyLeon"};
+                    int indice = ID - 1;
+                    if (indice >= 0 && indice < sizeof(nombresPeliculas)/sizeof(string) && !nombresPeliculas[indice].empty()) {
+                        abrirArchivoMultimedia("Peliculas", nombresPeliculas[ID - 1]);
+                        cout << "Reproduciendo película..." << endl;
+                    } else {
+                        cout << "Película no disponible." << endl;
+                    }
                     break;
                 }
                 case 2:
@@ -212,12 +226,19 @@ void UI_UX::mostrarMenuAccion(const int &opcion, int &ID) {
                         int totalDeEpisodios = Episodio::getNumeroDeEpisodios(ID);
                         if (numeroEpisodio >= 1 && numeroEpisodio <= totalDeEpisodios) {
                             cout << "Reproduciendo episodio..." << endl;
-                            int reseniar;
-                            cout << "¿Quieres reseñar este episodio? (1. Sí / 2. No): ";
-                            cin >> reseniar;
-                            if (reseniar == 1) {
-                                ID = ID * 100 + numeroEpisodio;
-                                realizarResenia(ID);
+                            string nombresSeries[] = {"BreakingBad_Ep1", "BreakingBad_Ep2", "BreakingBad_Ep3","GameOfThrones_Ep1", "GameOfThrones_Ep2", "GameOfThrones_Ep3", "StrangerThings_Ep1", "", "" ,"TheOffice_Ep1", "", "", "", "", "", "TheCrown_Ep1", "", "", "Narcos_Ep1", "", ""};
+                            int indice = (ID - 21) * 3 + (numeroEpisodio - 1);
+                            if (indice >= 0 && indice < sizeof(nombresSeries)/sizeof(string) && !nombresSeries[indice].empty()) {
+                                abrirArchivoMultimedia("Series", nombresSeries[indice]);
+                                int reseniar;
+                                cout << "¿Quieres reseñar este episodio? (1. Sí / 2. No): ";
+                                cin >> reseniar;
+                                if (reseniar == 1) {
+                                    ID = ID * 100 + numeroEpisodio;
+                                    realizarResenia(ID);
+                                }
+                            } else {
+                                cout << "Episodio no disponible." << endl;
                             }
                         } else {
                             cout << "Número de episodio no válido" << endl;
