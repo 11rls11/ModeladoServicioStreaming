@@ -212,10 +212,10 @@ void UI_UX::mostrarMenuAccion(const int &opcion, int &ID) {
                         int totalDeEpisodios = Episodio::getNumeroDeEpisodios(ID);
                         if (numeroEpisodio >= 1 && numeroEpisodio <= totalDeEpisodios) {
                             cout << "Reproduciendo episodio..." << endl;
-                            int reseñar;
+                            int reseniar;
                             cout << "¿Quieres reseñar este episodio? (1. Sí / 2. No): ";
-                            cin >> reseñar;
-                            if (reseñar == 1) {
+                            cin >> reseniar;
+                            if (reseniar == 1) {
                                 ID = ID * 100 + numeroEpisodio;
                                 realizarResenia(ID);
                             }
