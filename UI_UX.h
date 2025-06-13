@@ -11,6 +11,7 @@ using namespace std;
 
 class UI_UX {
     private:
+        void abrirArchivoMultimedia(const string& carpeta, const string& nombreArchivoSinExtension);
         void mostrarMenuSeleccion(const int &opcion);
         void mostrarMenuSubseleccion(const int &opcion, Video* &videos);
         void mostrarGenerosDisponibles(const int &opcion);
