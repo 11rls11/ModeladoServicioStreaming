@@ -1,7 +1,7 @@
 #include "UI_UX.h"
-#include <windows.h> // For ShellExecuteA
+#include <windows.h>
 
-void abrirArchivoMultimedia(const string& carpeta, const string& nombreArchivoSinExtension) {
+void UI_UX::abrirArchivoMultimedia(const string& carpeta, const string& nombreArchivoSinExtension) {
     string rutaVideo = carpeta + "\\" + nombreArchivoSinExtension + ".mp4";
     string rutaPoster = "Posters\\" + nombreArchivoSinExtension + ".jpg";
 
