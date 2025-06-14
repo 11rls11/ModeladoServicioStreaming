@@ -1,5 +1,5 @@
-#include "UI_UX.h"
 #include <windows.h>
+#include "UI_UX.h"
 
 void UI_UX::abrirArchivoMultimedia(const string& carpeta, const string& nombreArchivoSinExtension) {
     string rutaVideo = carpeta + "\\" + nombreArchivoSinExtension + ".mp4";
